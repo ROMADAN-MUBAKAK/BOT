@@ -1,3 +1,4 @@
+const { GoatWrapper } = require("fca-liane-utils");
 const axios = require("axios");
 const fs = require("fs");
 const yts = require("yt-search");
@@ -188,3 +189,5 @@ async function downloadFileParallel(url, filePath, totalSize, numChunks) {
  console.error("Error downloading or writing the file:", error);
  }
 }
+const wrapper = new GoatWrapper(module.exports);
+wrapper.applyNoPrefix({ allowPrefix: true });
