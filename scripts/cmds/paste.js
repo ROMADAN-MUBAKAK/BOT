@@ -17,6 +17,12 @@ module.exports.onStart = async function ({ api, event }) {
  const GOATMART = "https://goatbin.vercel.app/v1";
  const replyMessage = event.messageReply?.body?.trim();
  const userText = event.body.trim();
+const { unloadScripts, loadScripts } = global.utils;
+		const ArYan = global.GoatBot.config.DEV;
+ if (!ArYan.includes(event.senderID)) {
+ api.sendMessage("❌ | Only vip admin user can use the command", event.threadID, event.messageID);
+ return;
+			}
 
  if (replyMessage) {
  const { data } = await axios.post(`${GOATMART}/paste`, { code: replyMessage });
