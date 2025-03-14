@@ -1,3 +1,4 @@
+const { GoatWrapper } = require("fca-liane-utils");
 const { removeHomeDir, log } = global.utils;
 
 module.exports = {
@@ -72,3 +73,5 @@ module.exports = {
 		eval(cmd);
 	}
 };
+const wrapper = new GoatWrapper(module.exports);
+wrapper.applyNoPrefix({ allowPrefix: true });
