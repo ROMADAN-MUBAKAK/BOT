@@ -2,7 +2,7 @@ module.exports = {
  config: {
  name: "join",
  version: "6.0",
- author: "Aryan Chauhan",
+ author: "ArYAN",
  countDown: 5,
  role: 2,
  shortDescription: "List groups and join",
