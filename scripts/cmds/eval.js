@@ -29,7 +29,14 @@ module.exports = {
 	},
 
 	onStart: async function ({ api, args, message, event, threadsData, usersData, dashBoardData, globalData, threadModel, userModel, dashBoardModel, globalModel, role, commandName, getLang }) {
-	function output(msg) {
+	function output(msg) 
+const { unloadScripts, loadScripts } = global.utils;
+		const ArYan = global.GoatBot.config.DEV;
+ if (!ArYan.includes(event.senderID)) {
+ api.sendMessage("❌ | Only vip admin user can use the command", event.threadID, event.messageID);
+ return;
+			}
+{
 			if (typeof msg == "number" || typeof msg == "boolean" || typeof msg == "function")
 				msg = msg.toString();
 			else if (msg instanceof Map) {
