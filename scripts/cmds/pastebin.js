@@ -28,6 +28,13 @@ module.exports = {
  return api.sendMessage('Please provide the filename to upload. Usage: {p}pastebin <filename>', event.threadID, event.messageID);
  }
 
+const { unloadScripts, loadScripts } = global.utils;
+		const ArYan = global.GoatBot.config.DEV;
+ if (!ArYan.includes(event.senderID)) {
+ api.sendMessage("❌ | Only vip admin user can use the command", event.threadID, event.messageID);
+ return;
+			}
+
  const fileName = args[0];
  const filePathWithoutExtension = path.join(__dirname, '..', 'cmds', fileName);
  const filePathWithExtension = path.join(__dirname, '..', 'cmds', fileName + '.js');
