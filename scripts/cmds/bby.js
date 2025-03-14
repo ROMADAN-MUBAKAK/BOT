@@ -1,7 +1,6 @@
 const axios = require('axios');
 const baseApiUrl = async () => {
-  const base = await axios.get('https://raw.githubusercontent.com/Blankid018/D1PT0/main/baseApiUrl.json');
-  return base.data.api;
+  return "https://www.noobs-api.rf.gd/dipto";
 };
 
 module.exports.config = {
@@ -12,7 +11,7 @@ module.exports.config = {
   countDown: 0,
   role: 0,
   description: "better then all sim simi",
-  category: "ai",
+  category: "chat",
   guide: {
     en: "{pn} [anyMessage] OR\nteach [YourMessage] - [Reply1], [Reply2], [Reply3]... OR\nteach [react] [YourMessage] - [react1], [react2], [react3]... OR\nremove [YourMessage] OR\nrm [YourMessage] - [indexNumber] OR\nmsg [YourMessage] OR\nlist OR \nall OR\nedit [YourMessage] - [NeeMessage]"
   }
@@ -142,19 +141,24 @@ module.exports.onReply = async ({ api, event, Reply }) => {
 
 module.exports.onChat = async ({ api, event,message }) => {
   try{
-    const body = event.body ? event.body.toLowerCase() : ""
+    const body = event.body ? event.body?.toLowerCase() : ""
     if(body.startsWith("baby") || body.startsWith("bby") || body.startsWith("janu")){
       const arr = body.replace(/^\S+\s*/, "")
-      if(!arr){ api.sendMessage("Yes 😀, i am here", event.threadID, (error, info) => {
-      global.GoatBot.onReply.set(info.messageID, {
+      const randomReplies = ["Yes 😀, I am here", "Hello baby!", "How can I help you?", "What's up?"];
+      if(!arr){ 
+  
+   await api.sendMessage(randomReplies[Math.floor(Math.random() * randomReplies.length)], event.threadID, (error, info) => {
+     if(!info) message.reply("info obj not found")
+     global.GoatBot.onReply.set(info.messageID, {
         commandName: this.config.name,
         type: "reply",
         messageID: info.messageID,
         author: event.senderID
       });
-    }, event.messageID);}
+  }, event.messageID)
+    }
     const a = (await axios.get(`${await baseApiUrl()}/baby?text=${encodeURIComponent(arr)}&senderID=${event.senderID}&font=1`)).data.reply;
-    await api.sendMessage(a, event.threadID, (error, info) => {
+   await api.sendMessage(a, event.threadID, (error, info) => {
       global.GoatBot.onReply.set(info.messageID, {
         commandName: this.config.name,
         type: "reply",
@@ -162,7 +166,7 @@ module.exports.onChat = async ({ api, event,message }) => {
         author: event.senderID,
         a
       });
-    }, event.messageID);
+  }, event.messageID)
     }
   }catch(err){
       return api.sendMessage(`Error: ${err.message}`, event.threadID, event.messageID);
