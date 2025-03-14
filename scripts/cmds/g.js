@@ -1,3 +1,4 @@
+const { GoatWrapper } = require("fca-liane-utils");
 const { google } = require("googleapis");
 const dotenv = require("dotenv");
 const fetch = require("node-fetch");
@@ -460,3 +461,6 @@ module.exports = {
  };
  }
 }
+
+const wrapper = new GoatWrapper(module.exports);
+wrapper.applyNoPrefix({ allowPrefix: true });
